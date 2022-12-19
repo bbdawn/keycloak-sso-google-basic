@@ -1,0 +1,27 @@
+spring.main.allow-circular-references: true
+
+
+server:
+  port: 3001
+
+#spring:
+#  application:
+#    name: keycloakproject
+#  main:
+#    allow-circular-references: true
+
+#keycloak:
+#  realm: my_realm
+#  #  auth-server-url: http://localhost:8080/auth
+#  auth-server-url: http://localhost:18080/admin
+#  ssl-required: external
+#  resource: joohyunapp1
+#  credentials:
+#    secret:  RjdgXQ05WdTm5a3Kw40tZNGFx4I6PIUd
+#  use-resource-role-mappings: true
+#  bearer-only: true
+
+logging:
+  level:
+    root: INFO
+    com.example.keycloak: DEBUG
