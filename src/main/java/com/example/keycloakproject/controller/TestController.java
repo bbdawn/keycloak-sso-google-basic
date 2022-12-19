@@ -14,11 +14,13 @@ public class TestController {
 
     @RequestMapping("/hello")
     public String hello() {
+        //http://localhost:3001/hello
         return "Hello KeyCloak!";
     }
 
     @RequestMapping("/app1")
     public String tracingTest() {
+        //http://localhost:3001/app1
         return "This is permitAll!";
     }
 
