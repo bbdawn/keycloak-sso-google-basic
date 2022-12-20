@@ -18,10 +18,28 @@ public class TestController {
         return "Hello KeyCloak!";
     }
 
-    @RequestMapping("/app1")
-    public String tracingTest() {
-        //http://localhost:3001/app1
-        return "This is permitAll!";
+    @RequestMapping("/permit-all")
+    public String roleTest1() {
+        //http://localhost:3001/permit-all
+        return "This is permitAll! 누구든지 접근 가능합니다";
+    }
+
+    @RequestMapping("/authenticate")
+    public String roleTest2() {
+        //http://localhost:3001/only-login-user
+        return "인증한(로그인한) 사용자만 접근 가능합니다";
+    }
+
+    @RequestMapping("/authenticate/role/admin")
+    public String roleTest3() {
+        //http://localhost:3001/only-role-admin
+        return "Admin Role을 가지고 있는 사용자만 접근 가능합니다";
+    }
+
+    @RequestMapping("/authenticate/role/user")
+    public String roleTest4() {
+        //http://localhost:3001/only-role-user
+        return "User Role을 가지고 있는 사용자만 접근 가능합니다";
     }
 
 
