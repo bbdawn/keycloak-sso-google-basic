@@ -25,25 +25,6 @@ import java.io.InputStream;
 @EnableWebSecurity
 public class KeycloakSecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
 
-//    SpringSecurity 설정과 유사하다
-//    간단하게 /app* 요청은 permitAll이고, 그 외에는 모두 인증 절차를 거쳐야한다.
-//    즉 /app* 외에는 모두 Keycloak이 작동을 해야 한다.
-
-//    @Override
-//    protected void configure(HttpSecurity http) throws Exception {
-//        super.configure(http);
-//        http
-//                .authorizeRequests()
-//                .antMatchers("/test/permitAll").permitAll() //누구든지
-//                .antMatchers("/test/authenticated").authenticated() //인증한 사람만
-//                //Keycloak -> My_Realm -> Client -> My_Client -> Roles
-//                .antMatchers("/test/user").hasAnyRole("USER") //USER Role을 가지고 있는 사람만
-//                .antMatchers("/test/user").hasAnyRole("ADMIN") //ADMIN Role을 가지고 있는 사람만
-//                .anyRequest()
-//                .permitAll();
-//        http.csrf().disable();
-//    }
-
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         KeycloakAuthenticationProvider keycloakAuthenticationProvider = keycloakAuthenticationProvider();
@@ -58,11 +39,17 @@ public class KeycloakSecurityConfig extends KeycloakWebSecurityConfigurerAdapter
                 new SessionRegistryImpl());
     }
 
+    //    SpringSecurity 설정과 유사하다
+//      /permit-all 요청은 permitAll이고, 그 외에는 모두 Keycloak을 사용하여 인증 절차를 거쳐야한다.
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         super.configure(http);
         http.authorizeRequests()
-                .antMatchers("/app*").permitAll()
+                .antMatchers("/permit-all").permitAll() //누구든지 접근 가능
+                .antMatchers("/authenticate").authenticated() //인증한 사람만
+                .antMatchers("/authenticate/role/admin").hasAnyRole("ADMIN") //ADMIN Role을 가지고 있는 사람만
+                .antMatchers("/authenticate/role/user").hasAnyRole("USER") //USER Role을 가지고 있는 사람만
                 .anyRequest().authenticated();
     }
 
